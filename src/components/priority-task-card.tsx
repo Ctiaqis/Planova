@@ -1,69 +1,48 @@
 interface PriorityTaskCardProps {
-  course: string;
+  type: string;
   title: string;
   description?: string;
   priority: string;
-  risk?: string;
   deadline: string;
-  progress?: string;
   showButtons?: boolean;
 }
 
-export function PriorityTaskCard({ course, title, description, priority, risk, deadline, progress, showButtons }: PriorityTaskCardProps) {
+export function PriorityTaskCard({ type, title, description, priority, deadline, showButtons }: PriorityTaskCardProps) {
   return (
-    <div className="bg-white rounded-3xl p-6 shadow-sm shadow-slate-200/40 border border-slate-100 flex flex-col gap-4 relative overflow-hidden transition-all hover:shadow-md">
-      <div className="flex items-center justify-between">
-        <div className="flex flex-wrap gap-2">
-          <span className="px-3 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-semibold">{course}</span>
-          {priority === 'Urgent' && (
-            <span className="px-3 py-1 bg-red-50 text-red-600 rounded-lg text-xs font-semibold">Urgent</span>
-          )}
-          {priority === 'Medium' && (
-            <span className="px-3 py-1 bg-blue-50 text-blue-600 rounded-lg text-xs font-semibold">Medium</span>
-          )}
-          {risk === 'High Risk' && (
-            <span className="px-3 py-1 bg-rose-50 text-rose-500 rounded-lg text-xs font-semibold flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
-              High Risk
-            </span>
-          )}
+    <div className="bg-white rounded-xl p-4 shadow-sm border border-slate-100 flex flex-col gap-2 relative transition-all hover:shadow-md hover:border-pink-50">
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex-1">
+          <div className="flex items-center gap-2 mb-1.5">
+            <span className="px-2 py-0.5 bg-slate-100 text-slate-600 rounded text-[10px] font-medium uppercase tracking-wide">{type}</span>
+            {priority === 'Urgent' && (
+              <span className="px-2 py-0.5 bg-rose-50 text-rose-600 rounded text-[10px] font-medium uppercase tracking-wide">Urgent</span>
+            )}
+            {priority === 'High' && (
+              <span className="px-2 py-0.5 bg-orange-50 text-orange-600 rounded text-[10px] font-medium uppercase tracking-wide">High</span>
+            )}
+            {priority === 'Medium' && (
+              <span className="px-2 py-0.5 bg-blue-50 text-blue-600 rounded text-[10px] font-medium uppercase tracking-wide">Medium</span>
+            )}
+            {priority === 'Low' && (
+              <span className="px-2 py-0.5 bg-slate-50 text-slate-500 rounded text-[10px] font-medium uppercase tracking-wide">Low</span>
+            )}
+            <span className="ml-auto text-[11px] font-medium text-slate-500">{deadline}</span>
+          </div>
+          <h3 className="text-[14px] font-semibold text-slate-800 leading-tight">{title}</h3>
+          {description && <p className="text-[12px] text-slate-500 mt-1 leading-snug line-clamp-1">{description}</p>}
         </div>
       </div>
-      
-      <div>
-        <h3 className="text-lg font-bold text-slate-800">{title}</h3>
-        {description && <p className="text-sm text-slate-500 mt-2 leading-relaxed">{description}</p>}
-      </div>
 
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mt-2 pt-4 border-t border-slate-50 gap-4">
-        <div className="flex flex-col gap-1 w-full sm:w-auto">
-          <span className="text-xs text-slate-400 font-medium uppercase tracking-wider">Deadline</span>
-          <span className="text-sm font-semibold text-slate-700">{deadline}</span>
+      {showButtons && (
+        <div className="flex gap-2 justify-end mt-1 border-t border-slate-50 pt-2.5">
+          <button className="px-3 py-1.5 bg-slate-50 hover:bg-slate-100 text-slate-600 rounded-lg text-[11px] font-medium transition-colors">
+            Jadwalkan Ulang
+          </button>
+          <button className="px-3 py-1.5 bg-pink-500 hover:bg-pink-600 text-white rounded-lg text-[11px] font-medium shadow-sm transition-all">
+            Tandai Selesai
+          </button>
         </div>
-        
-        {progress && progress !== 'optional/simple' && (
-          <div className="flex flex-col gap-1.5 w-full sm:w-1/3">
-            <div className="flex justify-between items-end">
-              <span className="text-xs text-slate-400 font-medium uppercase tracking-wider">Progress</span>
-              <span className="text-xs font-bold text-slate-700">{progress}</span>
-            </div>
-            <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
-              <div className="h-full bg-blue-400 rounded-full" style={{ width: progress }}></div>
-            </div>
-          </div>
-        )}
-
-        {showButtons && (
-          <div className="flex gap-2 w-full sm:w-auto sm:justify-end">
-            <button className="px-4 py-2 bg-slate-50 hover:bg-slate-100 text-slate-600 rounded-xl text-sm font-semibold transition-colors">
-              Jadwalkan Ulang
-            </button>
-            <button className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-sm font-semibold shadow-sm transition-colors">
-              Tandai Selesai
-            </button>
-          </div>
-        )}
-      </div>
+      )}
     </div>
   );
 }
