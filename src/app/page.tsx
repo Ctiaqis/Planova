@@ -1,73 +1,63 @@
 import { Sidebar } from '@/components/sidebar';
 import { DashboardHeader } from '@/components/dashboard-header';
-import { SummaryCard } from '@/components/summary-card';
 import { PriorityTaskCard } from '@/components/priority-task-card';
-import { TaskDistribution } from '@/components/task-distribution';
 import { RemindersCard } from '@/components/reminders-card';
 
 export default function Home() {
-  const summaryData = [
-    { title: 'Total Tasks', count: 24, accentClass: 'bg-blue-400' },
-    { title: 'Not Started', count: 8, accentClass: 'bg-slate-300' },
-    { title: 'Ongoing', count: 5, accentClass: 'bg-sky-400' },
-    { title: 'Finished', count: 11, accentClass: 'bg-emerald-400' },
-    { title: 'Near Deadline', count: 3, accentClass: 'bg-purple-400' },
-    { title: 'High Risk', count: 2, accentClass: 'bg-rose-400' },
-  ];
-
   return (
-    <div className="flex min-h-screen bg-slate-50">
+    <div className="flex min-h-screen bg-slate-50/50">
       <Sidebar />
       
       <main className="flex-1 flex flex-col h-screen overflow-hidden">
-        <div className="flex-1 overflow-y-auto px-8 pb-12 pt-2">
-          <DashboardHeader />
+        <div className="flex-1 overflow-y-auto px-6 pb-12 pt-4">
           
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
-            {summaryData.map((data, index) => (
-              <SummaryCard
-                key={index}
-                title={data.title}
-                count={data.count}
-                accentClass={data.accentClass}
-              />
-            ))}
-          </div>
+          <div className="max-w-[1024px] mx-auto w-full px-2">
+            <DashboardHeader />
 
-          <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
-            <div className="xl:col-span-2 space-y-6">
-              <div className="flex items-center justify-between mb-2">
-                <h3 className="text-xl font-bold text-slate-800 tracking-tight">Prioritas Hari Ini</h3>
-                <button className="text-sm text-blue-500 font-semibold hover:text-blue-600 transition-colors">Lihat semua</button>
+            <div className="grid grid-cols-1 lg:grid-cols-[1.6fr_1fr] gap-6 mt-6">
+              
+              <div className="space-y-4 px-1">
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="text-lg font-bold text-slate-800 tracking-tight">Agenda Hari Ini</h3>
+                  <button className="text-[12px] text-pink-500 font-medium hover:text-pink-600 transition-colors">Lihat semua</button>
+                </div>
+                
+                <div className="space-y-3">
+                  <PriorityTaskCard
+                    type="Meeting"
+                    title="Design Sync: Planova UI V2"
+                    description="Discussing the new pink theme and clean UI guidelines with the product team."
+                    priority="High"
+                    deadline="10:00 AM"
+                    showButtons={true}
+                  />
+                  
+                  <PriorityTaskCard
+                    type="Task"
+                    title="Review Pull Requests"
+                    description="Check the latest PRs for the authentication module."
+                    priority="Medium"
+                    deadline="02:00 PM"
+                    showButtons={false}
+                  />
+
+                  <PriorityTaskCard
+                    type="Daily"
+                    title="Read 10 Pages of React Book"
+                    priority="Low"
+                    deadline="08:00 PM"
+                    showButtons={true}
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-4 mt-2 lg:mt-0">
+                <RemindersCard />
               </div>
               
-              <div className="space-y-4">
-                <PriorityTaskCard
-                  course="CS101"
-                  title="Data Structures Final Project"
-                  description="Complete the final implementation of the Red-Black tree algorithms and draft the accompanying technical report."
-                  priority="Urgent"
-                  risk="High Risk"
-                  deadline="Today 11:59PM"
-                  progress="75%"
-                  showButtons={true}
-                />
-                
-                <PriorityTaskCard
-                  course="ENG205"
-                  title="Literature Essay Draft"
-                  priority="Medium"
-                  deadline="Tomorrow 10:00AM"
-                  showButtons={false}
-                />
-              </div>
-            </div>
-
-            <div className="space-y-6">
-              <RemindersCard />
-              <TaskDistribution />
             </div>
           </div>
+          
         </div>
       </main>
     </div>
